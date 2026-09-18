@@ -16,18 +16,12 @@ static void print_distance_line(int v, int d) {
 static void run_bfs(const std::string &path) {
     int V, E;
     AdjList adj;
-
-    // --- Setup: NOT timed ---
     int source = read_unweighted_adjlist(path, V, E, adj);
-    CSRGraph g = adjlist_to_csr(adj, /*weighted=*/false);
-
-    // --- Timed: algorithm only ---
+    CSRGraph g = adjlist_to_csr(adj,false);
     auto t1 = Clock::now();
     BFSResult r = bfs(g, source);
     auto t2 = Clock::now();
     double ms = std::chrono::duration<double, std::milli>(t2 - t1).count();
-
-    // --- Output: NOT timed ---
     std::cout << "Algorithm: BFS\n";
     std::cout << "Source: " << source << "\n";
     std::cout << "Traversal: ";
@@ -44,7 +38,7 @@ static void run_dfs(const std::string &path) {
     AdjList adj;
 
     int source = read_unweighted_adjlist(path, V, E, adj);
-    CSRGraph g = adjlist_to_csr(adj, /*weighted=*/false);
+    CSRGraph g = adjlist_to_csr(adj, false);
 
     auto t1 = Clock::now();
     DFSResult r = dfs(g, source);
@@ -65,7 +59,7 @@ static void run_sssp(const std::string &path) {
     AdjList adj;
 
     int source = read_weighted_adjlist(path, V, E, adj);
-    CSRGraph g = adjlist_to_csr(adj, /*weighted=*/true);
+    CSRGraph g = adjlist_to_csr(adj, true);
 
     auto t1 = Clock::now();
     SSSPResult r = sssp(g, source);
