@@ -14,8 +14,6 @@ BFSResult bfs(const CSRGraph &g, int source) {
         int u = q.front();
         q.pop();
         result.traversal.push_back(u);
-
-        // Neighbors of u are col_idx[row_ptr[u] .. row_ptr[u+1])
         for (int e = g.row_ptr[u]; e < g.row_ptr[u + 1]; ++e) {
             int v = g.col_idx[e];
             if (result.distance[v] == -1) {
