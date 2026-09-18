@@ -58,9 +58,6 @@ BetweennessCentralityResult compute_betweenness_centrality(const CSRGraph &g) {
             }
         }
     }
-
-    // Undirected graph: each unordered pair {s, t} was counted twice
-    // (once from s, once from t).
     for (int v = 0; v < V; ++v) {
         res.centrality[v] /= 2.0;
     }
