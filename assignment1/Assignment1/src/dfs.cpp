@@ -17,10 +17,6 @@ DFSResult dfs(const CSRGraph &g, int source) {
         if (visited[u]) continue;
         visited[u] = 1;
         result.traversal.push_back(u);
-
-        // Push neighbors in REVERSE order so that, since it's a stack,
-        // they get popped/visited in the SAME order they appear in the
-        // input file -- matching what a recursive DFS would produce.
         for (int e = g.row_ptr[u + 1] - 1; e >= g.row_ptr[u]; --e) {
             int v = g.col_idx[e];
             if (!visited[v]) {
