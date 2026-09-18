@@ -29,17 +29,11 @@ def generate(V, E, seed):
     source, sink = 0, V - 1
 
     edges = set()
-
-    # Guaranteed backbone path from source to sink through a random
-    # permutation of the intermediate vertices, so a valid s-t path exists.
     middle = list(range(1, V - 1))
     rng.shuffle(middle)
     chain = [source] + middle + [sink]
     for i in range(len(chain) - 1):
         edges.add((chain[i], chain[i + 1]))
-
-    # Fill in random extra edges (mostly "forward" w.r.t. chain order to
-    # keep the graph sparse and largely well-behaved) until E is reached.
     pos = {v: i for i, v in enumerate(chain)}
     attempts = 0
     max_attempts = max(20 * E, 100000)
