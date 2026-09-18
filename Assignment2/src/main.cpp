@@ -16,7 +16,7 @@ static void run_triangle_counting(const std::string &path) {
     AdjList adj;
 
     read_unweighted_adjlist(path, V, E, adj);
-    CSRGraph g = adjlist_to_csr(adj, /*weighted=*/false);
+    CSRGraph g = adjlist_to_csr(adj, false);
 
     bool collect_list = (V <= TRIANGLE_LIST_MAX_V);
 
@@ -41,7 +41,7 @@ static void run_betweenness_centrality(const std::string &path) {
     AdjList adj;
 
     read_unweighted_adjlist(path, V, E, adj);
-    CSRGraph g = adjlist_to_csr(adj, /*weighted=*/false);
+    CSRGraph g = adjlist_to_csr(adj,false);
 
     auto t1 = Clock::now();
     BetweennessCentralityResult r = compute_betweenness_centrality(g);
@@ -62,7 +62,7 @@ static void run_connected_components(const std::string &path) {
     AdjList adj;
 
     read_unweighted_adjlist(path, V, E, adj);
-    CSRGraph g = adjlist_to_csr(adj, /*weighted=*/false);
+    CSRGraph g = adjlist_to_csr(adj, false);
 
     auto t1 = Clock::now();
     ConnectedComponentsResult r = find_connected_components(g);
