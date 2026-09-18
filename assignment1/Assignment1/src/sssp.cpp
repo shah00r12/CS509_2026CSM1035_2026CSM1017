@@ -6,8 +6,6 @@ SSSPResult sssp(const CSRGraph &g, int source) {
     SSSPResult result;
     result.distance.assign(g.V, SSSP_INF);
     result.predecessor.assign(g.V, -1);
-
-    // Min-heap of (distance, vertex), smallest distance on top.
     using PQEntry = std::pair<double, int>;
     std::priority_queue<PQEntry, std::vector<PQEntry>, std::greater<PQEntry>> pq;
 
@@ -22,7 +20,7 @@ SSSPResult sssp(const CSRGraph &g, int source) {
         int u = p.second;
         pq.pop();
 
-        if (finalized[u]) continue; // stale entry (a shorter distance was already found)
+        if (finalized[u]) continue;
         finalized[u] = 1;
 
         for (int e = g.row_ptr[u]; e < g.row_ptr[u + 1]; ++e) {
