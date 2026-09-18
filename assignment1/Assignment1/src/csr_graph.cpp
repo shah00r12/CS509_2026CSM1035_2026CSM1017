@@ -53,26 +53,17 @@ static int read_adjlist_common(const std::string &path, int &V, int &E,
 }
 
 int read_unweighted_adjlist(const std::string &path, int &V, int &E, AdjList &adj) {
-    return read_adjlist_common(path, V, E, adj, /*weighted=*/false);
+    return read_adjlist_common(path, V, E, adj, false);
 }
 
 int read_weighted_adjlist(const std::string &path, int &V, int &E, AdjList &adj) {
-    return read_adjlist_common(path, V, E, adj, /*weighted=*/true);
+    return read_adjlist_common(path, V, E, adj, true);
 }
-
-// ---------------------------------------------------------------------
-// Adjacency-list -> CSR conversion.
-// This is preprocessing: the assignment explicitly says its runtime must
-// be excluded from any algorithm's reported timing. Callers must convert
-// BEFORE starting the timer for BFS/DFS/SSSP.
-// ---------------------------------------------------------------------
 CSRGraph adjlist_to_csr(const AdjList &adj, bool weighted) {
     CSRGraph g;
     g.V = static_cast<int>(adj.size());
     g.weighted = weighted;
     g.row_ptr.assign(g.V + 1, 0);
-
-    // Pass 1: compute row_ptr via degree prefix sum
     for (int u = 0; u < g.V; ++u) {
         g.row_ptr[u + 1] = g.row_ptr[u] + static_cast<int>(adj[u].size());
     }
@@ -80,8 +71,6 @@ CSRGraph adjlist_to_csr(const AdjList &adj, bool weighted) {
     int total_edges = g.row_ptr[g.V];
     g.col_idx.resize(total_edges);
     g.values.resize(total_edges);
-
-    // Pass 2: fill col_idx / values
     for (int u = 0; u < g.V; ++u) {
         int idx = g.row_ptr[u];
         for (const auto &edge : adj[u]) {
