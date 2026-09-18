@@ -41,11 +41,11 @@ static int read_adjlist_common(const std::string &path, int &V, int &E,
 }
 
 int read_unweighted_adjlist(const std::string &path, int &V, int &E, AdjList &adj) {
-    return read_adjlist_common(path, V, E, adj, /*weighted=*/false);
+    return read_adjlist_common(path, V, E, adj,false);
 }
 
 int read_weighted_adjlist(const std::string &path, int &V, int &E, AdjList &adj) {
-    return read_adjlist_common(path, V, E, adj, /*weighted=*/true);
+    return read_adjlist_common(path, V, E, adj,true);
 }
 
 CSRGraph adjlist_to_csr(const AdjList &adj, bool weighted) {
