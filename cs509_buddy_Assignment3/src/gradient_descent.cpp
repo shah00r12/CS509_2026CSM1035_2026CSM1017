@@ -29,7 +29,6 @@ GDInput read_gd_input(const std::string &path) {
     if (in.degree < 0)
         throw std::runtime_error("Invalid Gradient Descent input: degree must be non-negative");
 
-    // COEFFICIENTS c0 c1 ... cd
     if (!std::getline(fin, line))
         throw std::runtime_error("Malformed Gradient Descent input: missing COEFFICIENTS line");
     {
